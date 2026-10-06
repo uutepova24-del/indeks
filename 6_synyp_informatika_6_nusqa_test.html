@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>6-сынып информатика тесті — 6 нұсқа</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#e0f2fe,#f5f3ff);
+  color:#172033;min-height:100vh
+}
+.container{max-width:900px;margin:30px auto;padding:20px}
+.card{
+  background:#fff;border-radius:22px;padding:28px;
+  box-shadow:0 12px 35px rgba(0,0,0,.10);margin-bottom:20px
+}
+h1,h2{text-align:center;color:#3730a3}
+.subtitle{text-align:center;color:#64748b;line-height:1.5}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{font-weight:bold;color:#334155}
+input,select{
+  width:100%;padding:13px;margin-top:7px;border:2px solid #cbd5e1;
+  border-radius:12px;font-size:16px
+}
+input:focus,select:focus{outline:none;border-color:#6366f1}
+.btn{
+  border:0;border-radius:12px;padding:13px 22px;font-size:16px;
+  font-weight:bold;cursor:pointer;margin:5px
+}
+.primary{background:#4f46e5;color:white}
+.secondary{background:#e2e8f0;color:#1e293b}
+.success{background:#16a34a;color:white}
+.danger{background:#dc2626;color:white}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.center{text-align:center}
+.info{
+  background:#eef2ff;border-left:5px solid #6366f1;padding:14px;
+  border-radius:10px;margin:15px 0
+}
+.hidden{display:none}
+.progress{height:12px;background:#e2e8f0;border-radius:20px;overflow:hidden;margin:15px 0}
+.progress-bar{height:100%;background:#4f46e5;width:0%;transition:.3s}
+.question-number{color:#6366f1;font-weight:bold}
+.question{font-size:22px;font-weight:bold;line-height:1.45;margin:18px 0}
+.option{
+  display:block;width:100%;text-align:left;padding:15px;margin:10px 0;
+  border:2px solid #cbd5e1;background:#fff;border-radius:13px;
+  cursor:pointer;font-size:17px;transition:.2s
+}
+.option:hover{background:#f8fafc;border-color:#818cf8}
+.option.correct{background:#dcfce7;border-color:#16a34a;color:#166534}
+.option.wrong{background:#fee2e2;border-color:#dc2626;color:#991b1b}
+.option:disabled{cursor:default}
+.feedback{font-size:28px;text-align:center;min-height:42px;margin:10px}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+.result{text-align:center}
+.score{font-size:48px;font-weight:bold;color:#4f46e5}
+.badge{
+ display:inline-block;padding:8px 14px;border-radius:20px;
+ background:#ede9fe;color:#5b21b6;font-weight:bold;margin:5px
+}
+.small{font-size:14px;color:#64748b}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.container{padding:10px}.card{padding:20px}.question{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div id="startScreen" class="card">
+  <h1>💻 6-сынып информатика</h1>
+  <p class="subtitle"><b>Тақырыптар:</b> компьютерлік жүйелер және қауіпсіздік, интернеттегі жауапкершілік,
+  жасанды интеллектідегі деректер, жүйелік блок пен компьютер жадысы, файлдық жүйе және программалық жасақтама.</p>
+
+  <div class="info">
+    <b>Оқу мақсаттары:</b><br>
+    6.4.1.1 — желідегі техника қауіпсіздігі ережесін бұзудың салдарын талқылау;<br>
+    6.3.3.1 — деректер, ақпарат, білім ұғымдарын ажырату және ЖИ оқытудағы деректердің рөлін түсіндіру;<br>
+    6.1.1.1 — жүйелік блок, жады түрлері және процессор сипаттамаларын сипаттау;<br>
+    6.1.1.2 — операциялық жүйе функциялары, файл атаулары мен кеңейтілімдерін қолдану.
+  </div>
+
+  <div class="grid">
+    <div>
+      <label>Сыныбы *</label>
+      <input id="className" placeholder="Мысалы: 6 «А»">
+    </div>
+    <div>
+      <label>Пәні *</label>
+      <input id="subject" value="Информатика">
+    </div>
+    <div>
+      <label>Оқушының аты-жөні *</label>
+      <input id="studentName" placeholder="Аты-жөніңізді жазыңыз">
+    </div>
+    <div>
+      <label>Нұсқаны таңдаңыз *</label>
+      <select id="variant">
+        <option value="">-- Нұсқаны таңдаңыз --</option>
+        <option value="1">1-нұсқа</option>
+        <option value="2">2-нұсқа</option>
+        <option value="3">3-нұсқа</option>
+        <option value="4">4-нұсқа</option>
+        <option value="5">5-нұсқа</option>
+        <option value="6">6-нұсқа</option>
+      </select>
+    </div>
+  </div>
+
+  <p class="small">Әр нұсқада 10 сұрақ. Әр сұрақта 4 жауап нұсқасы бар.</p>
+  <div class="center">
+    <button class="btn primary" onclick="startTest()">Тестті бастау 🚀</button>
+  </div>
+</div>
+
+<div id="testScreen" class="card hidden">
+  <div class="center">
+    <span class="badge" id="studentInfo"></span>
+    <span class="badge" id="variantInfo"></span>
+  </div>
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="question-number" id="questionNumber"></div>
+  <div class="question" id="questionText"></div>
+  <div id="options"></div>
+  <div class="feedback" id="feedback"></div>
+
+  <div class="nav">
+    <button id="prevBtn" class="btn secondary" onclick="previousQuestion()">⬅ Артқа</button>
+    <button id="nextBtn" class="btn primary" onclick="nextQuestion()">Алға ➡</button>
+  </div>
+</div>
+
+<div id="resultScreen" class="card hidden">
+  <div class="result">
+    <h1>🎉 Тест аяқталды!</h1>
+    <p id="resultStudent"></p>
+    <div class="score" id="scoreText"></div>
+    <h2 id="percentText"></h2>
+    <p id="resultMessage"></p>
+    <div id="review"></div>
+    <button class="btn primary" onclick="location.reload()">🔄 Қайта бастау</button>
+    <button class="btn secondary" onclick="window.print()">🖨 Нәтижені басып шығару</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+const tests = {
+1:[
+["Интернетте жеке құпиясөзді басқа адамға беру қандай қауіпке әкелуі мүмкін?",["Аккаунттың бұзылуына","Компьютердің жылдамдауына","Экранның үлкеюіне","Принтердің жұмыс істеуіне"],0],
+["Интернеттегі алаяқтықтың бір белгісі қайсы?",["Күмәнді сілтеме арқылы ақша немесе құпия дерек сұрау","Мектеп сайтынан ақпарат оқу","Файлды өз қалтаңа сақтау","Компьютерді өшіру"],0],
+["Интернеттегі агрессия дегеніміз не?",["Басқа адамды желіде қорлау немесе қудалау","Компьютерді тазалау","Файлды көшіру","Құжат басып шығару"],0],
+["Ойынға тәуелділіктің ықтимал салдары қандай?",["Уақытты бақылаудың қиындауы және оқу үлгерімінің төмендеуі","Интернет жылдамдығының артуы","Жад көлемінің көбеюі","Монитор сапасының жақсаруы"],0],
+["Жасанды интеллект моделін оқытуда деректер не үшін қажет?",["Модель заңдылықтарды үйренуі үшін","Мониторды жарықтандыру үшін","Пернетақтаны қосу үшін","Файлды басып шығару үшін"],0],
+["«Деректер» ұғымына қайсысы жатады?",["Сандар, мәтіндер, суреттер сияқты өңделетін мәліметтер","Тек адамның пікірі","Тек компьютердің корпусы","Тек интернет кабелі"],0],
+["RAM жадының негізгі қызметі қандай?",["Бағдарламалар жұмыс істеп тұрған кезде деректерді уақытша сақтау","Компьютерді электрмен қамтамасыз ету","Дыбыс шығару","Сурет салу"],0],
+["Процессордың тактілік жиілігі нені сипаттайды?",["Процессордың жұмыс істеу жылдамдығын сипаттайтын көрсеткіштердің бірі","Монитор өлшемін","Дискінің түсін","Пернетақта санын"],0],
+["Операциялық жүйенің негізгі қызметтерінің бірі қандай?",["Компьютер ресурстарын және бағдарламалардың жұмысын басқару","Тек мәтін теру","Тек музыка тыңдау","Тек сурет салу"],0],
+[".docx кеңейтілімі көбіне қандай файлға тән?",["Мәтіндік құжатқа","Суретке","Бейнефайлға","Аудиофайлға"],0]
+],
+2:[
+["Күмәнді электрондық хат келгенде ең дұрыс әрекет қандай?",["Сілтемені ашпай, хабарламаны тексеру немесе жою","Сілтемені бірден басу","Құпиясөзді жіберу","Барлық достарға тарату"],0],
+["Қауіпсіз құпиясөздің сипаты қандай?",["Әріптер, сандар және арнайы таңбалар араласқан күрделі құпиясөз","123456","qwerty","Тек туған жыл"],0],
+["Фишинг дегеніміз не?",["Жалған сайт немесе хабарлама арқылы құпия ақпаратты алдау жолымен алу","Файлды архивтеу","Компьютерді жаңарту","Сурет салу әдісі"],0],
+["Кибербуллингке тап болған оқушы не істегені дұрыс?",["Дәлелді сақтап, бұғаттап, сенімді ересекке хабарлау","Қорлауға жауап ретінде қорлау","Құпиясөзін жариялау","Барлық хабарламаны достарына тарату"],0],
+["Ақпарат пен деректің айырмашылығы қандай?",["Ақпарат — түсіндірілген, мағынасы бар деректер нәтижесі","Екеуі де тек сурет","Дерек тек қағазда болады","Ақпарат компьютерде болмайды"],0],
+["ЖИ моделіне сапасыз деректер берілсе не болуы мүмкін?",["Модельдің нәтижелері қате немесе сапасыз болуы мүмкін","Модель автоматты түрде жөнделеді","Компьютердің экраны үлкейеді","Интернет өшеді"],0],
+["ROM жадының ерекшелігі қандай?",["Ондағы ақпарат тұрақты сақталуы мүмкін және электр өшкенде жоғалмайды","Тек уақытша жұмыс жады","Тек дыбыс сақтайды","Тек интернетті басқарады"],0],
+["Кэш-жады не үшін қолданылады?",["Процессорға жиі қажет деректерге жылдам қол жеткізуді қамтамасыз ету үшін","Файлдарды қағазға шығару үшін","Мониторды қосу үшін","Пернетақтаны тазалау үшін"],0],
+["Файл атауы мен кеңейтілімінің мысалы қайсы?",["жоба.docx","жоба компьютер",".жоба/","жоба::"],0],
+["Файлдарды реттеу үшін не қолдануға болады?",["Қалталар","Тек калькулятор","Монитор","Тінтуір төсемі"],0]
+],
+3:[
+["Қоғамдық компьютерде жеке аккаунтқа кіргеннен кейін не істеу керек?",["Жұмысты аяқтап, аккаунттан шығу","Құпиясөзді сақтап кету","Аккаунтты ашық қалдыру","Құпиясөзді экранға жазу"],0],
+["Интернетте жеке мекенжайды бейтаныс адамға беру дұрыс па?",["Жоқ, жеке деректі қорғау керек","Иә, әрқашан беру керек","Тек ойын кезінде беру керек","Тек түнде беру керек"],0],
+["Әлеуметтік желідегі күмәнді конкурс не сұрауы мүмкін?",["Жеке дерек, карта немесе құпиясөз сұрауы мүмкін","Тек кітап оқу","Компьютерді өшіру","Принтерді қосу"],0],
+["Интернетті қауіпсіз қолданудың дұрыс қағидасы қайсы?",["Бейтаныс сілтемелер мен файлдарды тексеру","Барлық сілтемені ашу","Құпиясөзді жариялау","Бейтаныс адамдарға жеке фото жіберу"],0],
+["«Білім» ұғымына қай сипаттама сәйкес?",["Деректер мен ақпаратты түсіну және тәжірибеде қолдану нәтижесі","Кездейсоқ таңбалар жиыны","Тек компьютер жады","Тек сурет"],0],
+["ЖИ моделін оқытуға арналған деректер қандай болғаны дұрыс?",["Сапалы, жеткілікті және мақсатқа сәйкес","Кездейсоқ және қате","Тек бір ғана мысалдан","Тек бос файлдардан"],0],
+["CPU қысқартуы нені білдіреді?",["Орталық процессор","Сыртқы сақтау құрылғысы","Жедел жад","Операциялық жүйе"],0],
+["Көп ядролы процессордың артықшылығы қандай?",["Бірнеше есепті тиімдірек өңдеуге мүмкіндік береді","Мониторды үлкейтеді","Интернет кабелін ауыстырады","Дыбысты автоматты өшіреді"],0],
+["Операциялық жүйеге мысал қайсы?",["Windows","Word құжаты","JPEG суреті","Пернетақта"],0],
+[".jpg кеңейтілімі қандай файл түріне тән?",["Сурет файлына","Мәтіндік құжатқа","Бағдарлама орнатқышына","Аудиофайлға"],0]
+],
+4:[
+["Интернетте агрессиялық пікір жазудың салдары қандай болуы мүмкін?",["Адамға психологиялық зиян келтіруі және жанжал туғызуы мүмкін","Компьютер жады көбейеді","Wi-Fi күшейеді","Процессор ядросы көбейеді"],0],
+["Алаяқтықтан қорғанудың дұрыс жолы қандай?",["Сайттың мекенжайын тексеріп, құпия деректерді күмәнді жерге енгізбеу","Құпиясөзді кез келген адамға айту","Белгісіз файлды ашу","Банк кодын чатқа жазу"],0],
+["Ойын уақытын басқарудың тиімді жолы қайсы?",["Ойынға уақыт шегін белгілеп, үзіліс жасау","Ұйқыны қысқарту","Сабақты тоқтату","Тамақтанбай ойнау"],0],
+["Құпия ақпаратқа қайсысы жатады?",["Құпиясөз және растау коды","Ауа райы болжамы","Мектептің жалпы мекенжайы","Ашық оқулық мәтіні"],0],
+["ЖИ нәтижесінің сапасы неге тәуелді?",["Оқыту деректерінің сапасы мен әртүрлілігіне де тәуелді","Тек монитор түсіне","Тек пернетақтаға","Тек компьютер үстеліне"],0],
+["Ақпаратты адам қалай алады?",["Деректерді қабылдап, өңдеп, мағынасын түсіну арқылы","Тек файлды өшіру арқылы","Тек компьютерді өшіру арқылы","Тек принтерді қосу арқылы"],0],
+["Сыртқы сақтау құрылғысына қайсысы жатады?",["USB флеш-жад","Процессор ядросы","Кэш","Монитор"],0],
+["SSD мен HDD не үшін қолданылады?",["Деректерді ұзақ уақыт сақтауға","Процессорды салқындатуға","Экранды жарықтандыруға","Пернетақтаны басқаруға"],0],
+["Файл кеңейтілімінің негізгі қызметі қандай?",["Файлдың түрін немесе форматымен байланысты ақпаратты көрсету","Файлды міндетті түрде жасыру","Компьютерді өшіру","Интернетті қосу"],0],
+["Қалтаның негізгі мақсаты қандай?",["Файлдарды реттеп, топтап сақтау","Мониторды басқару","Процессорды жылдамдату","Пернетақтаны ауыстыру"],0]
+],
+5:[
+["Бейтаныс адам интернетте құпиясөз сұраса не істейсің?",["Бермеу және қажет болса ересек адамға хабарлау","Бірден жіберу","Досыңның құпиясөзін де беру","Әлеуметтік желіге жариялау"],0],
+["Қауіпсіздік ережесін бұзудың ықтимал салдары қандай?",["Жеке деректің ұрлануы немесе құрылғыға зиян келуі","Компьютер автоматты түрде жаңаруы","Баға автоматты көтерілуі","Жад көлемінің өсуі"],0],
+["Кибербуллинг дегеніміз не?",["Интернет арқылы адамды қорлау, қудалау немесе кемсіту","Компьютерді жөндеу","Файлды көшіру","Бағдарлама жазу"],0],
+["Интернеттегі жауапкершілікке не жатады?",["Басқалардың құқығын құрметтеу және ақпаратты жауапты пайдалану","Кез келген ақпаратты тарату","Басқаның аккаунтын бұзу","Жалған ақпарат тарату"],0],
+["ЖИ-ді оқытудағы деректердің рөлі қандай?",["Модельге мысалдар арқылы заңдылықтарды үйренуге мүмкіндік береді","Тек компьютерді безендіреді","Тек файл көлемін азайтады","Тек дыбыс шығарады"],0],
+["Деректерге мысал қайсы?",["Оқушылардың тест нәтижелері кестесі","Тек адамның ойы","Компьютердің түсі ғана","Үстелдің биіктігі ғана"],0],
+["RAM мен сыртқы жадтың айырмашылығы қандай?",["RAM уақытша жұмысқа, сыртқы жад ұзақ сақтауға қолданылады","Екеуі де тек суретке арналған","RAM тек қағаз сақтайды","Сыртқы жад процессордың ядросы"],0],
+["Процессордың ядро саны нені білдіреді?",["Процессордағы есептеу ядроларының санын","Жадтың гигабайтын","Монитордың дюймін","Файлдардың санын"],0],
+["Windows сияқты операциялық жүйе не басқарады?",["Компьютердің аппараттық және бағдарламалық ресурстарын","Тек интернет браузерін","Тек принтер қағазын","Тек музыка файлын"],0],
+["Файлдың дұрыс атауына қайсысы мысал?",["informatika6.docx","informatika6<>.docx","informatika6|docx","informatika6*.docx"],0]
+],
+6:[
+["Интернеттегі қауіпсіз мінез-құлықтың ең дұрыс нұсқасы қайсы?",["Құпиясөзді қорғау, күмәнді сілтемені ашпау және жеке деректі жарияламау","Барлық парольді достарға беру","Белгісіз файлды ашу","Күмәнді сайтқа карта дерегін енгізу"],0],
+["Фишингтен қорғанудың бір тәсілі қандай?",["Сайттың нақты мекенжайын тексеру","Барлық хаттағы сілтемені басу","SMS кодты жариялау","Банк паролін чатқа жіберу"],0],
+["Ойынға тәуелділіктің алдын алуға не көмектеседі?",["Уақытты жоспарлау және тұрақты үзіліс жасау","Ұйықтамау","Сабақтан қалу","Ойынды тәулік бойы ойнау"],0],
+["Кибербуллинг кезінде не істеуге болмайды?",["Қорлауға жауап ретінде қайтадан қорлау","Дәлелдерді сақтау","Бұғаттау","Сенімді адамға айту"],0],
+["Ақпарат дегеніміз не?",["Мағынасы бар, адамға түсінікті деректер нәтижесі","Кездейсоқ таңбалар ғана","Тек компьютер корпусы","Тек интернет кабелі"],0],
+["ЖИ моделіне әртүрлі және сапалы деректер беру не үшін маңызды?",["Модельдің әртүрлі жағдайларды жақсырақ үйренуі үшін","Компьютердің түсін өзгерту үшін","Мониторды үлкейту үшін","Принтерді өшіру үшін"],0],
+["Кэш-жадының негізгі ерекшелігі қандай?",["Жиі қолданылатын деректерді өте жылдам қолжетімді етуге көмектеседі","Файлдарды қағазға басады","Интернетке қосады","Тек бейне сақтайды"],0],
+["ROM жады туралы дұрыс тұжырым қайсы?",["Ақпаратты тұрақты сақтау үшін қолданылатын жад түрі","Тек уақытша RAM","Тек процессордың ядросы","Тек сыртқы диск"],0],
+["Операциялық жүйе файлдармен не істей алады?",["Файлдарды құру, сақтау, көшіру, жылжыту және басқаруды ұйымдастырады","Тек сурет салады","Тек интернет жылдамдығын өлшейді","Тек мониторды бояйды"],0],
+["Файл кеңейтілімдерінің дұрыс жұбы қайсы?",[".pdf — құжат, .mp3 — аудио",".mp3 — сурет, .jpg — аудио",".docx — бейне, .mp4 — мәтін",".jpg — дыбыс, .wav — сурет"],0]
+]
+};
+
+let currentVariant=0, currentQuestion=0, answers=[], locked=[];
+
+function startTest(){
+  const cls=document.getElementById("className").value.trim();
+  const sub=document.getElementById("subject").value.trim();
+  const name=document.getElementById("studentName").value.trim();
+  const v=document.getElementById("variant").value;
+  if(!cls||!sub||!name||!v){
+    alert("Сынып, пән, оқушының аты-жөні және нұсқаны толық толтырыңыз!");
+    return;
+  }
+  currentVariant=Number(v);
+  currentQuestion=0;
+  answers=new Array(10).fill(null);
+  locked=new Array(10).fill(false);
+  document.getElementById("studentInfo").textContent=name+" • "+cls;
+  document.getElementById("variantInfo").textContent=currentVariant+"-нұсқа";
+  document.getElementById("startScreen").classList.add("hidden");
+  document.getElementById("testScreen").classList.remove("hidden");
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q=tests[currentVariant][currentQuestion];
+  document.getElementById("questionNumber").textContent=
+    `Сұрақ ${currentQuestion+1} / 10`;
+  document.getElementById("questionText").textContent=q[0];
+  document.getElementById("progressBar").style.width=((currentQuestion+1)*10)+"%";
+  document.getElementById("feedback").textContent="";
+  const options=document.getElementById("options");
+  options.innerHTML="";
+  q[1].forEach((text,i)=>{
+    const b=document.createElement("button");
+    b.className="option";
+    b.textContent=String.fromCharCode(65+i)+") "+text;
+    b.onclick=()=>chooseAnswer(i);
+    if(locked[currentQuestion]){
+      b.disabled=true;
+      if(i===q[2]) b.classList.add("correct");
+      if(i===answers[currentQuestion] && i!==q[2]) b.classList.add("wrong");
+    }
+    options.appendChild(b);
+  });
+  if(locked[currentQuestion]){
+    document.getElementById("feedback").textContent =
+      answers[currentQuestion]===q[2] ? "🎉 Дұрыс! 😊👏" : "😔 Қате. Дұрыс жауап жасыл түспен көрсетілді.";
+  }
+  document.getElementById("prevBtn").disabled=currentQuestion===0;
+  document.getElementById("nextBtn").textContent=currentQuestion===9?"Тесті аяқтау 🏁":"Алға ➡";
+}
+
+function chooseAnswer(i){
+  if(locked[currentQuestion]) return;
+  answers[currentQuestion]=i;
+  locked[currentQuestion]=true;
+  renderQuestion();
+}
+
+function previousQuestion(){
+  if(currentQuestion>0){currentQuestion--;renderQuestion();}
+}
+
+function nextQuestion(){
+  if(!locked[currentQuestion]){
+    alert("Алдымен жауап нұсқаларының бірін таңдаңыз.");
+    return;
+  }
+  if(currentQuestion<9){currentQuestion++;renderQuestion();}
+  else showResult();
+}
+
+function showResult(){
+  let correct=0;
+  tests[currentVariant].forEach((q,i)=>{if(answers[i]===q[2]) correct++;});
+  const percent=Math.round(correct/10*100);
+  document.getElementById("testScreen").classList.add("hidden");
+  document.getElementById("resultScreen").classList.remove("hidden");
+  const name=document.getElementById("studentName").value.trim();
+  const cls=document.getElementById("className").value.trim();
+  document.getElementById("resultStudent").innerHTML=
+    `<b>${escapeHtml(name)}</b> • ${escapeHtml(cls)} • ${currentVariant}-нұсқа`;
+  document.getElementById("scoreText").textContent=`${correct} / 10`;
+  document.getElementById("percentText").textContent=`${percent}%`;
+  let msg="";
+  if(percent===100) msg="🏆 Керемет! Барлық сұраққа дұрыс жауап бердіңіз! 🤩👏";
+  else if(percent>=80) msg="🎉 Өте жақсы нәтиже! 😊👍";
+  else if(percent>=60) msg="🙂 Жақсы! Тағы да қайталап, нәтижені жақсартуға болады.";
+  else msg="💪 Қайталап оқып, қайта сынап көріңіз! Сіз міндетті түрде үйренесіз! 🌟";
+  document.getElementById("resultMessage").textContent=msg;
+
+  const review=document.getElementById("review");
+  review.innerHTML="<h3>Нәтиже бойынша сұрақтар:</h3>";
+  tests[currentVariant].forEach((q,i)=>{
+    const p=document.createElement("p");
+    p.innerHTML=(answers[i]===q[2]?"✅":"❌")+` ${i+1}-сұрақ`;
+    review.appendChild(p);
+  });
+}
+
+function escapeHtml(str){
+  return str.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+</script>
+</body>
+</html>
